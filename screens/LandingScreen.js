@@ -13,6 +13,7 @@ const Landing = () => {
                 <Categories />
                 <Products />
             </View>
+            <Text>Landing Screen </Text>
         </Layout>
     );
 };
