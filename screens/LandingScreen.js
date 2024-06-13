@@ -16,6 +16,7 @@ const Landing = () => {
                 <Products/>
                 <Footer style={styles.footer}/>
             </View>
+            <Text>Landing Screen </Text>
         </Layout>
     );
 };
