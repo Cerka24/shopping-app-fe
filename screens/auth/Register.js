@@ -1,107 +1,211 @@
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, ScrollView } from "react-native";
-import React, {useState} from "react";
-import { useDispatch } from "react-redux";
-import InputBox from "../../components/Form/InputBox";
-import { useReduxStateHook } from "../../hooks/customHooks";
+// import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, ScrollView } from "react-native";
+// import React, {useState} from "react";
+// import { useDispatch } from "react-redux";
+// import InputBox from "../../components/Form/InputBox";
+// import { useReduxStateHook } from "../../hooks/customHooks";
 
 
-const Register = ({navigation}) => {
+// const Register = ({navigation}) => {
 
-const dispatch = useDispatch();      
+// const dispatch = useDispatch();      
     
-const loginImage = require('../../assets/register.jpg');
-const [email, setEamil] = useState("");
-const [password, setPassword] = useState("");
-const [name, setName] = useState("");
-const [address, setAddress] = useState("");
-const [city, setCity] = useState("");
-const [phone, setPhone] = useState("");
-//   const [answer, setAnswer] = useState("");
-const [country, setCountry] = useState("Bosnia and Herzegovina");
+// const loginImage = require('../../assets/register.jpg');
+// const [email, setEamil] = useState("");
+// const [password, setPassword] = useState("");
+// const [name, setName] = useState("");
+// const [address, setAddress] = useState("");
+// const [city, setCity] = useState("");
+// const [phone, setPhone] = useState("");
+// //   const [answer, setAnswer] = useState("");
+// const [country, setCountry] = useState("Bosnia and Herzegovina");
 
-// login function
-const handleRegister = () => {
-    // validation
+// // login function
+// const handleRegister = () => {
+//     // validation
+//     if (!email || !password || !name || !address || !city || !phone) {
+//       return alert("Please provide all fields client side");
+//     }
+//     const formData = {email, password, name, address, city, phone, answer, country: "Bosnia and Herzegovina.",
+//     };
+//     dispatch(register(formData));
+//     // navigation.navigate("/login");
+//   };
+//   const loading = useReduxStateHook(navigation, "login");
+//     return (
+//         <ScrollView contentContainerStyle={styles.scrollContainer}>
+//             <View style={styles.container}>
+//                 <Image source={loginImage} style={styles.image} />
+
+//                 <View style={styles.textContainer}>
+//                     <Text style={styles.boldText}>Hello! Welcome to <Text style={styles.gadgetShop}>GadgetShop</Text> </Text>
+//                     <Text>Please sign up to create your account. </Text>
+//                 </View>
+//                 <InputBox
+//                     style={styles.inputBox} 
+//                     placeholder={"Enter your name"}
+//                     value={name}
+//                     setValue={setName}
+//                     autoComplete={"name"}
+//                 />
+//                 <InputBox
+//                     style={styles.inputBox}
+//                     placeholder={"Enter your email"}
+//                     value={email}
+//                     setValue={setEamil}
+//                     autoComplete={"email"}
+//                 />
+//                 <InputBox
+//                     style={styles.inputBox}
+//                     value={password}
+//                     setValue={setPassword}
+//                     placeholder={"Enter your password"}
+//                     secureTextEntry={true}
+//                 />
+//                 <InputBox
+//                     style={styles.inputBox}
+//                     placeholder={"Enter your city"}
+//                     value={city}
+//                     setValue={setCity}
+//                     autoComplete={"country"}
+//                 />
+//                 <InputBox
+//                     style={styles.inputBox}
+//                     placeholder={"Enter your address"}
+//                     value={address}
+//                     setValue={setAddress}
+//                     autoComplete={"address-line1"}
+//                 />
+//                 <InputBox
+//                     style={styles.inputBox}
+//                     placeholder={"Enter your contact"}
+//                     value={phone}
+//                     setValue={setPhone}
+//                     autoComplete={"name"}
+//                 />
+//                 {/* <InputBox
+//                     placeholder={"Enter You favrite dish"}
+//                     value={answer}
+//                     setValue={setAnswer}
+//                     autoComplete={"name"}
+//                 /> */}
+//                 <View style={styles.btnContainer}>
+//                 <TouchableOpacity style={styles.loginBtn} onPress={handleRegister}>
+//                 <Text style={styles.loginBtnText}>Sign Up </Text>
+//                 </TouchableOpacity>
+//                 <Text> You already have an account? 
+//                 <Text style={styles.registerBtn} onPress={() => navigation.navigate("login")}> Click to sign in </Text>
+//                 </Text>
+//                 </View>
+//             </View>
+//         </ScrollView>
+//     );
+// };
+
+// export default Register;
+
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { useReduxStateHook } from "../../hooks/customHooks";
+import InputBox from "../../components/Form/InputBox";
+
+const Register = ({ navigation }) => {
+  const dispatch = useDispatch();      
+  
+  const loginImage = require('../../assets/register.jpg');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [phone, setPhone] = useState("");
+  const [country, setCountry] = useState("Bosnia and Herzegovina");
+
+  const handleRegister = async () => {
     if (!email || !password || !name || !address || !city || !phone) {
       return alert("Please provide all fields client side");
     }
-    const formData = {email, password, name, address, city, phone, answer, country: "Bosnia and Herzegovina.",
+    const formData = {
+      email, password, name, address, city, phone, country: "Bosnia and Herzegovina"
     };
-    dispatch(register(formData));
-    // navigation.navigate("/login");
+    try {
+      await AsyncStorage.setItem('userData', JSON.stringify(formData));
+      alert("Registration successful!");
+      navigation.navigate("login");
+    } catch (error) {
+      alert("Error saving data");
+    }
   };
-  const loading = useReduxStateHook(navigation, "login");
-    return (
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
-            <View style={styles.container}>
-                <Image source={loginImage} style={styles.image} />
 
-                <View style={styles.textContainer}>
-                    <Text style={styles.boldText}>Hello! Welcome to <Text style={styles.gadgetShop}>GadgetShop</Text> </Text>
-                    <Text>Please sign up to create your account. </Text>
-                </View>
-                <InputBox
-                    style={styles.inputBox} 
-                    placeholder={"Enter your name"}
-                    value={name}
-                    setValue={setName}
-                    autoComplete={"name"}
-                />
-                <InputBox
-                    style={styles.inputBox}
-                    placeholder={"Enter your email"}
-                    value={email}
-                    setValue={setEamil}
-                    autoComplete={"email"}
-                />
-                <InputBox
-                    style={styles.inputBox}
-                    value={password}
-                    setValue={setPassword}
-                    placeholder={"Enter your password"}
-                    secureTextEntry={true}
-                />
-                <InputBox
-                    style={styles.inputBox}
-                    placeholder={"Enter your city"}
-                    value={city}
-                    setValue={setCity}
-                    autoComplete={"country"}
-                />
-                <InputBox
-                    style={styles.inputBox}
-                    placeholder={"Enter your address"}
-                    value={address}
-                    setValue={setAddress}
-                    autoComplete={"address-line1"}
-                />
-                <InputBox
-                    style={styles.inputBox}
-                    placeholder={"Enter your contact"}
-                    value={phone}
-                    setValue={setPhone}
-                    autoComplete={"name"}
-                />
-                {/* <InputBox
-                    placeholder={"Enter You favrite dish"}
-                    value={answer}
-                    setValue={setAnswer}
-                    autoComplete={"name"}
-                /> */}
-                <View style={styles.btnContainer}>
-                <TouchableOpacity style={styles.loginBtn} onPress={handleRegister}>
-                <Text style={styles.loginBtnText}>Sign Up </Text>
-                </TouchableOpacity>
-                <Text> You already have an account? 
-                <Text style={styles.registerBtn} onPress={() => navigation.navigate("login")}> Click to sign in </Text>
-                </Text>
-                </View>
-            </View>
-        </ScrollView>
-    );
+  const loading = useReduxStateHook(navigation, "login");
+  return (
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <View style={styles.container}>
+        <Image source={loginImage} style={styles.image} />
+        <View style={styles.textContainer}>
+          <Text style={styles.boldText}>Hello! Welcome to <Text style={styles.gadgetShop}>GadgetShop</Text></Text>
+          <Text>Please sign up to create your account.</Text>
+        </View>
+        <InputBox
+          style={styles.inputBox} 
+          placeholder={"Enter your name"}
+          value={name}
+          setValue={setName}
+          autoComplete={"name"}
+        />
+        <InputBox
+          style={styles.inputBox}
+          placeholder={"Enter your email"}
+          value={email}
+          setValue={setEmail}
+          autoComplete={"email"}
+        />
+        <InputBox
+          style={styles.inputBox}
+          value={password}
+          setValue={setPassword}
+          placeholder={"Enter your password"}
+          secureTextEntry={true}
+        />
+        <InputBox
+          style={styles.inputBox}
+          placeholder={"Enter your city"}
+          value={city}
+          setValue={setCity}
+          autoComplete={"country"}
+        />
+        <InputBox
+          style={styles.inputBox}
+          placeholder={"Enter your address"}
+          value={address}
+          setValue={setAddress}
+          autoComplete={"address-line1"}
+        />
+        <InputBox
+          style={styles.inputBox}
+          placeholder={"Enter your contact"}
+          value={phone}
+          setValue={setPhone}
+          autoComplete={"name"}
+        />
+        <View style={styles.btnContainer}>
+          <TouchableOpacity style={styles.loginBtn} onPress={handleRegister}>
+            <Text style={styles.loginBtnText}>Sign Up</Text>
+          </TouchableOpacity>
+          <Text>You already have an account?
+            <Text style={styles.registerBtn} onPress={() => navigation.navigate("login")}> Click to sign in</Text>
+          </Text>
+        </View>
+      </View>
+    </ScrollView>
+  );
 };
 
+
 export default Register;
+
 
 const styles = StyleSheet.create({
     scrollContainer: {
