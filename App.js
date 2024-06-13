@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -13,6 +12,9 @@ import Notifications from './screens/account/Notifications';
 import AdminDashboard from './screens/Admin/AdminDashboard';
 import { useEffect, useState } from 'react';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import ProductDetails from './screens/ProductDetails';
+import { Provider } from 'react-redux';
+import store from "./redux/store";
 
 const Stack = createNativeStackNavigator()
 
@@ -29,6 +31,7 @@ export default function App() {
     getUserLocalData();
   }, []);
   return (
+
       <NavigationContainer>
         <Stack.Navigator initialRouteName="login">
           <Stack.Screen
@@ -63,6 +66,17 @@ export default function App() {
           )}
       </Stack.Navigator>
     </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName='login'>
+          <Stack.Screen name="landing" component={Landing} options={{ headerShown:false, }}/>
+          <Stack.Screen name="info" component={Info} options={{ headerShown:false, }}/>
+          <Stack.Screen name="login" component={Login} options={{ headerShown:false, }}/>
+          <Stack.Screen name="register" component={Register} options={{ headerShown:false, }}/>
+          <Stack.Screen name="productDetails" component={ProductDetails} options={{ headerShown:false, }}/>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 
