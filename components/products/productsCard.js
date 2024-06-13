@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 
@@ -25,7 +25,7 @@ const ProductsCard = ({ p }) => {
                     </TouchableOpacity>
                 </View>
             </View>
-        </View> 
+        </View>
     );
 };
 
@@ -35,15 +35,16 @@ const styles = StyleSheet.create({
     card: {
         borderWidth: 1,
         borderColor: "lightgray",
+        borderRadius: 10,
         marginVertical: 5,
-        marginHorizontal: 8,
-        width: "45%",
+        marginHorizontal: 80,
+        width: "60%",
         padding: 10,
         backgroundColor: "#ffffff",
         justifyContent: "center",
       },
       cardImage: {
-        height: 120,
+        height: 300,
         width: "100%",
         marginBottom: 10,
       },
@@ -65,9 +66,10 @@ const styles = StyleSheet.create({
       btn: {
         backgroundColor: "#000000",
         height: 20,
-        width: 75,
+        width: "100%",
         borderRadius: 5,
         justifyContent: "center",
+        marginTop: 10,
       },
       btnCart: {
         backgroundColor: "orange",

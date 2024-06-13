@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, ScrollView 
 import React, {useState} from "react";
 import { useDispatch } from "react-redux";
 import InputBox from "../../components/Form/InputBox";
-import { useReduxStateHook } from "../../hooks/customeHook";
+import { useReduxStateHook } from "../../hooks/customHooks";
 
 
 const Register = ({navigation}) => {

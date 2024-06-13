@@ -1,6 +1,6 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
-import ProductsData from "../data/productsData"
+import { ProductsData } from "../data/productsData";
 import Layout from "../components/layout-components/layout-component";
 
 const ProductDetails = ({ route }) => {
@@ -9,10 +9,10 @@ const ProductDetails = ({ route }) => {
 
   useEffect(() => {
 
-    // const getProudct = ProductsData.find((p) => {
-    //   return p?._id === params?._id;
-    // });
-    setPDetails(getProudct);
+    const getProduct = ProductsData.find((p) => {
+      return p?._id === params?._id;
+    });
+    setPDetails(getProduct);
   }, [params?._id]);
 
   const handleAddQty = () => {
@@ -67,12 +67,14 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     textAlign: "left",
+    paddingHorizontal: 10
   },
   desc: {
     fontSize: 12,
     textTransform: "capitalize",
     textAlign: "justify",
     marginVertical: 10,
+    paddingHorizontal: 10
   },
   btnContainer: {
     flexDirection: "row",

@@ -1,6 +1,7 @@
 import { createReducer } from "@reduxjs/toolkit";
 
-export const userReducer = createReducer({ token: null }, (builder) => {
+export const UserReducer = createReducer({ token: null }, (builder) => {
+  // LOGIN CASE
   builder.addCase("loginRequest", (state, action) => {
     state.loading = true;
   });
@@ -14,27 +15,27 @@ export const userReducer = createReducer({ token: null }, (builder) => {
     state.isAuth = false;
     state.error = action.payload;
   });
-
+  // ERROR MESSAGE CASE
   builder.addCase("clearError", (state) => {
     state.error = null;
   });
   builder.addCase("clearMessage", (state) => {
     state.message = null;
   });
-
+  //REGISTER
   builder.addCase("registerRequest", (state, action) => {
     state.loading = true;
   });
   builder.addCase("registerSucess", (state, action) => {
     state.loading = false;
-
+    // state.isAuth = true;
     state.message = action.payload;
   });
   builder.addCase("registerFail", (state, action) => {
     state.isAuth = false;
     state.error = action.payload;
   });
-
+  //  GET USER DATA
   builder.addCase("getUserDataRequest", (state, action) => {
     state.loading = true;
   });
@@ -47,7 +48,7 @@ export const userReducer = createReducer({ token: null }, (builder) => {
     state.isAuth = false;
     state.error = action.payload;
   });
-
+  // LOGOUT
   builder.addCase("logoutRequest", (state, action) => {
     state.loading = true;
   });

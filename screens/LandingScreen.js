@@ -4,14 +4,12 @@ import Layout from "../components/layout-components/layout-component";
 import Categories from "../components/category/categories";
 import Products from "../components/products/Products";
 import Footer from "../components/layout-components/footer-component";
-import Header from "../components/layout-components/header-component";
 
 
 const Landing = () => {
     return (
         <Layout>
             <View style={styles.container}>
-                <Header />
                 <Categories />
                 <Products/>
                 <Footer style={styles.footer}/>
@@ -25,9 +23,8 @@ export default Landing;
 
 const styles = StyleSheet.create({
     container: {
-        paddingBottom: 450,
+        paddingBottom: 100,
         backgroundColor: "#ffffff",
-        paddingBottom: 10
     },
     footer: {
         display: "flex",

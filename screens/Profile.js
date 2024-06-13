@@ -5,7 +5,7 @@ import { userData } from "../data/userData";
 import InputBox from "../components/Form/InputBox";
 
 const Profile = ({ navigation }) => {
-  // state
+
   const [email, setEmail] = useState(userData.email);
   const [profilePic, setProfilePic] = useState(userData.profilePic);
   const [password, setPassword] = useState(userData.password);
@@ -14,7 +14,7 @@ const Profile = ({ navigation }) => {
   const [city, setCity] = useState(userData.city);
   const [contact, setContact] = useState(userData.contact);
 
-  // update profile
+
   const handleUpdate = () => {
     if (!email || !password || !name || !address || !city || !contact) {
       return alert("Please provide all fields.");
