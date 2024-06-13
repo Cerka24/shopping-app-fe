@@ -22,6 +22,8 @@ export default Landing;
 
 const styles = StyleSheet.create({
     container: {
-        paddingBottom: 450
+        paddingBottom: 450,
+        backgroundColor: "#ffffff",
+
     },
   });
