@@ -1,25 +1,26 @@
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from "react-native";
 import React, {useState} from "react";
+// import { useReduxStateHook } from "../../hooks/customeHook";
 import InputBox from "../../components/Form/InputBox";
 
 
-const Login = ({navigation}) => {
+const Login = ({ navigation }) => {
+//   const loading = useReduxStateHook(navigation);
 
-    
-    const loginImage = require('../../assets/login.png');
-    const [email,setEmail] = useState('');
-    const [password,setPassword] = useState('');
+  const loginImage = require('../../assets/login.png');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-    // login function
-    const handleLogin = () => {
-        if(!email || !password){
-            return alert("Please add email or password");
-        }
-        alert("Login Successfully");
-        navigation.navigate('landing');
+  const handleLogin = () => {
+    if (!email || !password) {
+      return alert("Please add email or password");
     }
-    return (
-        <View style={styles.container}>
+    alert("Your login was successful.");
+    navigation.navigate('landing');
+  }
+
+  return (
+    <View style={styles.container}>
             <Image source={loginImage} style={styles.image} />
 
             <View style={styles.textContainer}>
@@ -27,10 +28,12 @@ const Login = ({navigation}) => {
                 <Text>Please sign in to continue to your account. </Text>
             </View>
             <InputBox placeholder={"Enter Your Email"} 
+            style={styles.inputBox}
             value={email} 
             setValue={setEmail}
             autoComplete={"email"}/>
             <InputBox 
+            style={styles.inputBox}
             value={password} 
             setValue={setPassword}
             placeholder={"Enter Your Password"} 
@@ -48,6 +51,7 @@ const Login = ({navigation}) => {
         </View>
     );
 };
+
 
 export default Login;
 
@@ -75,6 +79,10 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginBottom: 10,
     },
+    inputBox: {
+        width: "80%",
+        marginHorizontal: 35,
+    },
     btnContainer: {
         justifyContent: "center",
         alignItems: "center",
@@ -84,7 +92,7 @@ const styles = StyleSheet.create({
         width: "80%",
         justifyContent: "center",
         height: 40,
-        borderRadius: 10,
+        borderRadius: 30,
         alignItems: "center",
         marginHorizontal: 20,
         marginVertical: 20,

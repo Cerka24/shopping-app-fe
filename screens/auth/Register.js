@@ -1,10 +1,13 @@
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, ScrollView } from "react-native";
 import React, {useState} from "react";
+import { useDispatch } from "react-redux";
 import InputBox from "../../components/Form/InputBox";
+import { useReduxStateHook } from "../../hooks/customeHook";
 
 
 const Register = ({navigation}) => {
 
+const dispatch = useDispatch();      
     
 const loginImage = require('../../assets/register.jpg');
 const [email, setEamil] = useState("");
@@ -16,15 +19,18 @@ const [phone, setPhone] = useState("");
 //   const [answer, setAnswer] = useState("");
 const [country, setCountry] = useState("Bosnia and Herzegovina");
 
-    // register function
-    const handleRegister = () => {
+// login function
+const handleRegister = () => {
     // validation
     if (!email || !password || !name || !address || !city || !phone) {
-      return alert("To proceed with creating your account, please ensure all required fields in the form are completed.");
+      return alert("Please provide all fields client side");
     }
-    navigation.navigate("login");
-    }
-
+    const formData = {email, password, name, address, city, phone, answer, country: "Bosnia and Herzegovina.",
+    };
+    dispatch(register(formData));
+    // navigation.navigate("/login");
+  };
+  const loading = useReduxStateHook(navigation, "login");
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
             <View style={styles.container}>
@@ -35,37 +41,43 @@ const [country, setCountry] = useState("Bosnia and Herzegovina");
                     <Text>Please sign up to create your account. </Text>
                 </View>
                 <InputBox
-                    placeholder={"Enter Your Name"}
+                    style={styles.inputBox} 
+                    placeholder={"Enter your name"}
                     value={name}
                     setValue={setName}
                     autoComplete={"name"}
                 />
                 <InputBox
-                    placeholder={"Enter Your Email"}
+                    style={styles.inputBox}
+                    placeholder={"Enter your email"}
                     value={email}
                     setValue={setEamil}
                     autoComplete={"email"}
                 />
                 <InputBox
+                    style={styles.inputBox}
                     value={password}
                     setValue={setPassword}
-                    placeholder={"Enter Your Password"}
+                    placeholder={"Enter your password"}
                     secureTextEntry={true}
                 />
                 <InputBox
-                    placeholder={"Enter Your City"}
+                    style={styles.inputBox}
+                    placeholder={"Enter your city"}
                     value={city}
                     setValue={setCity}
                     autoComplete={"country"}
                 />
                 <InputBox
-                    placeholder={"Enter Your Address"}
+                    style={styles.inputBox}
+                    placeholder={"Enter your address"}
                     value={address}
                     setValue={setAddress}
                     autoComplete={"address-line1"}
                 />
                 <InputBox
-                    placeholder={"Enter Your Contact"}
+                    style={styles.inputBox}
+                    placeholder={"Enter your contact"}
                     value={phone}
                     setValue={setPhone}
                     autoComplete={"name"}
@@ -81,7 +93,7 @@ const [country, setCountry] = useState("Bosnia and Herzegovina");
                 <Text style={styles.loginBtnText}>Sign Up </Text>
                 </TouchableOpacity>
                 <Text> You already have an account? 
-                <Text style={styles.registerBtn} onPress={() => navigation.navigate("login")}> Click to sign in. </Text>
+                <Text style={styles.registerBtn} onPress={() => navigation.navigate("login")}> Click to sign in </Text>
                 </Text>
                 </View>
             </View>
@@ -123,6 +135,10 @@ const styles = StyleSheet.create({
         marginBottom: 5,
 
     },
+    inputBox: {
+        width: "80%",
+        marginHorizontal: 35,
+    },
     btnContainer: {
         justifyContent: "center",
         alignItems: "center",
@@ -132,7 +148,7 @@ const styles = StyleSheet.create({
         width: "80%",
         justifyContent: "center",
         height: 40,
-        borderRadius: 10,
+        borderRadius: 30,
         alignItems: "center",
         marginHorizontal: 20,
         marginVertical: 10,
